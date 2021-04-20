@@ -1,0 +1,53 @@
+<div class="main">
+  <app-header></app-header>
+</div>
+<section>
+  <mat-form-field appearance="outline" color="accent">
+    <mat-label>Cerca Ristorante</mat-label>
+    <input matInput [(ngModel)]="sharedService.cercaRistorante" (ngModelChange)="sharedService.cerca(sharedService.cercaRistorante)"/>
+    <mat-icon matSuffix>search</mat-icon>
+  </mat-form-field>
+
+  <h4>Filtra per tipologia ristorante</h4>
+  <div class="tipologia">
+   <button (click)="sharedService.filtraPerTipo('2')">
+      SUSHI
+    </button>
+    <button (click)="sharedService.filtraPerTipo('1')">
+      PIZZA
+    </button>
+    <button (click)="sharedService.filtraPerTipo('3')">
+      HAMBURGER
+    </button>
+    <button (click)='sharedService.mostraTutti()'>
+      TUTTI
+    </button> 
+  </div>
+  <div class="cardContainer">
+    <button
+      *ngFor="let item of sharedService.listaFiltrataRisto"
+      [routerLink]="['/ristoranti/menu']"
+      routerLinkActive="router-link-active"
+      (click)="sharedService.selezionaRisto(item.IdRistorante, item.Logo, item.tipologia.Tipologia,item.CostiConsegna, item.TempiConsegna, item.Ristorante )"
+    >
+      <mat-card class="example-card">
+        <img
+          mat-card-image
+          src="{{ sharedService.imgLogo}}{{ item.Logo }}"
+          alt="{{ item.Ristorante }}"
+        />
+        <div>
+          <h3>{{ item.Ristorante }}</h3>
+          <mat-card-content>
+            <p>Ordine minimo: {{ item.OrdineMinimo }}€</p>
+            <p>Tempi di consegna: {{ item.TempiConsegna }}min</p>
+            <p>Costi di consegna: {{ item.CostiConsegna }}€</p>
+            <p>{{ item.tipologia.Tipologia }}</p>
+            <p *ngIf="false">{{item.IdRistorante}} {{item.tipologia.IdTipologia}}</p>
+          </mat-card-content>
+        </div>
+      </mat-card>
+    </button>
+  </div>
+</section>
+<app-scarica-app></app-scarica-app>

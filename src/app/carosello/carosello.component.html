@@ -1,0 +1,12 @@
+
+    <ngx-slick-carousel (click)="sharedService.onResize()" class="carousel" 
+  #slickModal="slick-carousel" 
+  [config]="sharedService.slideConfig" 
+  (init)="sharedService.slickInit($event)"
+  (breakpoint)="sharedService.breakpoint($event)"
+  (afterChange)="sharedService.afterChange($event)"
+  (beforeChange)="sharedService.beforeChange($event)">
+<div ngxSlickItem *ngFor="let slide of sharedService.slides" class="slide">
+<img [src]="slide.img" alt="" width="100%">
+</div>
+</ngx-slick-carousel>

@@ -1,0 +1,158 @@
+@font-face {
+  font-family: "icon";
+  src: url("../../font/fontello.eot?87393820");
+  src: url("../../font/fontello.eot?87393820#iefix") format("embedded-opentype"),
+    url("../../font/fontello.woff2?87393820") format("woff2"),
+    url("../../font/fontello.woff?87393820") format("woff"),
+    url("../../font/fontello.ttf?87393820") format("truetype"),
+    url("../../font/fontello.svg?87393820#fontello") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+$coloreB: #f7fff7;
+$coloreN: #090c02;
+$coloreC: #3ba4bc;
+$coloreR: #e75a7c;
+$coloreG: #f4a641;
+
+::ng-deep .mat-menu-panel{
+  max-width: 500px !important;
+  min-width: 300px !important;
+  text-align: right;
+  button{
+    display: block;
+    text-align: right;
+  }
+}
+a{
+  color: $coloreB;
+  text-decoration: none;
+  font-size: 14px;
+}
+%fontIcon {
+  font-family: "icon";
+  font-size: 18px;
+  margin-left: 20px;
+  &:hover {
+    border: none !important;
+    padding: 6px !important;
+  }
+}
+.Iphone {
+  display: none;
+  
+}
+.fontIcon {
+  @extend %fontIcon;
+}
+.example-spacer {
+  flex: 1 1 auto;
+}
+.mat-toolbar {
+  box-sizing: border-box;
+  background: $coloreR;
+  position: fixed;
+  top: 0;
+  z-index: 100;
+  padding: 10px 30px !important;
+  color: $coloreB;
+  height: inherit;
+  button {
+    border: none;
+    background-color: transparent;
+    outline: none;
+    cursor: pointer;
+    padding: 6px;
+    color: $coloreB;
+  }
+  img {
+    width: 80px;
+  }
+
+  .navDx {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-between;
+    .collabora {
+      margin-left: 5%;
+    }
+    .Desktop {
+      // width: 0; 
+      // height: 0; 
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      display: flex;
+      align-items: center;
+      button {
+        margin-left: 30px;
+        font-size: 16px;
+      }
+    }
+  }
+}
+
+
+@media only screen and (max-width: 768px) {
+
+  .Iphone{
+    display: block;
+    color: $coloreR;
+  }
+  
+  .Desktop {
+   width: 0; 
+   height: 0; 
+   overflow: hidden;
+  }
+
+  // Slide menu
+  label{
+    position: relative;
+    cursor: pointer; 
+    color: $coloreR; 
+  }
+  #menu:checked ~ nav{
+   left: 0;
+   right: 0;
+  }
+  nav{
+    position: absolute;
+    top: 0;
+    left: 110%;
+    right: -110%;
+    transition: .8s;
+    div{
+      padding-top: 100px;
+      height: 85vh;
+      text-align: center;
+      display: flex;
+      flex-direction: column;;
+      justify-content: space-between;
+      background-color: $coloreR;
+      
+    button{
+      font-size: 20px;
+      color: $coloreB !important;
+      text-align: center;
+    }
+      span{
+        display: flex;
+        justify-content: space-between;
+        padding: 20px;
+      }
+    }
+  }
+  // nav bar cambio colore
+
+  .mat-toolbar {
+    background-color: #fff;
+    border-bottom: 1px solid rgb(192, 191, 191); height: 110px;
+    max-width: 100%;
+    button{
+      color: $coloreR;
+    }
+  }
+}

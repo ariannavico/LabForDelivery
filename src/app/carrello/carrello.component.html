@@ -1,0 +1,34 @@
+<app-header></app-header>
+
+<main style="margin-top: 130px;" >
+  <h1 style="padding: 20px 4vw;">Il mio carrello</h1>
+  <p  style="padding: 0px 4vw;">Ordine per: {{this.sharedService.ristoranteSelezionatoOgg.nomeRistorante}}</p>
+  <hr />
+  <section>
+    <div *ngFor="let item of this.sharedService.carrello">
+      <span style="display: flex; justify-content: space-between;">
+        <span class="flexato">
+          <h4>{{ item.prodotto }}</h4>
+          <h4 class='prezzo'>{{ item.prezzoProdotto }}€</h4>
+          <h4 *ngIf="false" >{{item.descrizioneProdotto}}{{item.idProdotto}}</h4>
+        </span>
+        <button (click)='this.sharedService.eliminaItem( item.prezzoProdotto,item.idProdotto )' mat-button><mat-icon>clear</mat-icon></button>
+      </span>
+    </div>
+    <span class="flexato" >
+      <h5>Subtotale:</h5>
+      <h5 class='prezzo'>{{this.sharedService.subtotaleDaVisualizzare}}€</h5>
+    </span>
+    <span class="flexato" >
+      <h5>Spese di consegna:</h5>
+      <h5 class='prezzo'>{{this.sharedService.costiConsegna}}€</h5>
+    </span>
+    <hr />
+    <span class="flexato" >
+      <h3>Totale:</h3>
+      <h3 class='prezzo'>{{this.sharedService.totaleDaVisualizzare}}€</h3>
+    </span>
+    <button *ngIf="this.sharedService.carrello.length != 0" style="margin: 0 4vw; background-color: #3ba4bc; color: #fff" mat-button (click)='this.sharedService.postDatiOrdine()' [routerLink]="['/ordini']" routerLinkActive="router-link-active">Vai alla cassa</button>
+  </section>
+</main>
+

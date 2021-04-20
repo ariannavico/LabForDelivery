@@ -1,0 +1,198 @@
+<mat-toolbar color="primary">
+  <!-- due loghi in base al formato dispositivo-->
+  <button [routerLink]="['/']" routerLinkActive="router-link-active">
+    <img class="Desktop" src="../../assets/logo-bianco.png" />
+    <img class="Iphone" src="../../assets/logo-rosa.png" />
+  </button>
+  <span class="example-spacer"></span>
+  <div class="navDx">
+    <!-- iphone-->
+    <div class="Iphone">
+      <label class="label" for="menu">
+        <mat-icon>menu</mat-icon>
+      </label>
+      <input style="display: none" type="checkbox" id="menu" />
+      <nav>
+        <label
+          style="
+            color: #fff;
+            z-index: 101;
+            position: absolute;
+            right: 30px;
+            top: 40px;
+          "
+          for="menu"
+        >
+          <mat-icon style="font-size: 30px">close</mat-icon>
+        </label>
+        <div>
+          <button
+            mat-menu-item
+            [routerLink]="['/carrello']"
+            routerLinkActive="router-link-active"
+          >
+            Carrello
+          </button>
+          <button
+            mat-menu-item
+            [routerLink]="['/ristoranti']"
+            routerLinkActive="router-link-active"
+          >
+            Ristoranti
+          </button>
+          <button
+            mat-menu-item
+            [routerLink]="['/login']"
+            routerLinkActive="router-link-active"
+            (click)="sharedServiceForm.cancellaMessaggioLoginStato()"
+          >
+            Login / Registrati
+          </button>
+          <button mat-menu-item>Collabora con noi</button>
+          <span>
+            <button mat-menu-item class="fontIcon">2</button>
+            <button mat-menu-item class="fontIcon">1</button>
+            <button mat-menu-item class="fontIcon">4</button>
+            <button mat-menu-item class="fontIcon">3</button>
+          </span>
+        </div>
+      </nav>
+    </div>
+    <!-- desktop -->
+    <span class="Desktop">
+      <button
+        class="ristoranti"
+        [routerLink]="['/ristoranti']"
+        mat-stroked-button
+      >
+        Ristoranti
+      </button>
+      <button
+        (click)="sharedServiceForm.cancellaMessaggioLoginStato()"
+        [routerLink]="['/login']"
+        routerLinkActive="router-link-active"
+        mat-stroked-button
+        color="primary"
+        class="login"
+      >
+        Login / Registrati
+      </button>
+      <button
+        mat-button
+        class="example-icon"
+        aria-label="Example icon-button with menu icon"
+        [matMenuTriggerFor]="shoppingCart"
+      >
+        <mat-icon>shopping_cart</mat-icon>
+        <div
+          style="
+            background-color: #3ba4bc;
+            position: absolute;
+            top: 0;
+            right: 0px;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            line-height: 24px;
+          "
+          *ngIf="sharedServiceForm.badgeInvisible() == false"
+        >
+          {{ sharedService.carrello.length }}
+        </div>
+      </button>
+      <mat-menu #shoppingCart="matMenu" xPosition="before">
+        <span>
+          <button
+            mat-menu-item
+            *ngFor="let item of this.sharedService.carrello"
+          >
+            <span
+              style="
+                display: flex;
+                justify-content: space-between;
+                width: 350px;
+              "
+            >
+              <p style="margin-right: 30px">{{ item.prodotto }}</p>
+              <p *ngIf="false">
+                {{ item.prezzoProdotto }}{{ item.descrizioneProdotto
+                }}{{ item.idProdotto }}
+              </p>
+
+              <button
+                mat-button
+                (click)="
+                  this.sharedService.eliminaItem(
+                    item.prezzoProdotto,
+                    item.idProdotto
+                  )
+                "
+              >
+                <mat-icon>clear</mat-icon>
+              </button>
+            </span>
+          </button>
+
+          <button mat-menu-item *ngIf="this.sharedService.totale === 0">
+            Carrello vuoto
+          </button>
+          <div
+            style="display: flex; justify-content: space-between; width: 100%"
+          >
+            <button mat-menu-item *ngIf="this.sharedService.totale !== 0">
+              Totale: {{ this.sharedService.totaleDaVisualizzare }} €
+            </button>
+            <button
+              *ngIf="this.sharedService.totale !== 0"
+              style="
+                background-color: #3ba4bc;
+                color: #fff;
+                display: inline-block;
+                max-width: 120px;
+                margin-right: 10px;
+              "
+              mat-menu-item
+              [routerLink]="['/carrello']"
+              routerLinkActive="router-link-active"
+            >
+              Vai al carrello
+            </button>
+          </div>
+        </span>
+      </mat-menu>
+    </span>
+    <div class="icons Desktop">
+      <button
+        mat-button
+        class="example-icon favorite-icon fontIcon"
+        aria-label="Example icon-button with heart icon"
+      >
+        2
+      </button>
+      <button
+        mat-button
+        class="example-icon fontIcon"
+        aria-label="Example icon-button with share icon"
+      >
+        1
+      </button>
+      <button
+        mat-button
+        class="example-icon fontIcon"
+        aria-label="Example icon-button with share icon"
+      >
+        4
+      </button>
+      <button
+        mat-button
+        class="example-icon fontIcon"
+        aria-label="Example icon-button with share icon"
+      >
+        3
+      </button>
+      <button class="collabora">
+        <a href="#collabora" li class="collabora"> collabora con noi </a>
+      </button>
+    </div>
+  </div>
+</mat-toolbar>

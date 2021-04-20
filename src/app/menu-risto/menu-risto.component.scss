@@ -1,0 +1,67 @@
+$coloreC: #3ba4bc;
+$coloreR: #e75a7c;
+$coloreG: #f4a641;
+section {
+  margin-top: 130px;
+  .mat-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  button {
+    background-color: $coloreG;
+    color: #fff;
+  }
+}
+
+$coloreC: #3ba4bc;
+$coloreR: #e75a7c;
+$coloreG: #f4a641;
+section {
+  margin: 130px 30px 4vw;
+  .nomeRisto {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 4vw 0;
+    span {
+      margin-left: 30px;
+    }
+  
+  }
+}
+
+.prompt{
+  position: fixed; 
+  z-index: 200;
+  left: 0; right: 0; 
+  top: 0; 
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7); 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  div{
+    padding: 30px;
+    text-align: center;
+    background-color: #fff;
+    width: 40%;
+  button{
+    padding: 3px 0;
+    &:hover{
+    padding:  0;
+    border: 1px solid #000
+    }
+
+}
+  }
+}
+
+@media only screen and (max-width: 768px){
+  .prompt{
+     div{
+       width: 70%;
+     }
+  }
+  
+}

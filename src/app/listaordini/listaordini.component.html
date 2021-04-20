@@ -1,0 +1,38 @@
+<app-header></app-header>
+<main style="margin-top: 130px">
+  <!-- <article *ngIf="sharedService.OrdiniEffettuati !== undefined"> -->
+  <h3 style="padding: 20px 4vw 0">
+    Ciao {{ this.sharedService.idNomeUtente }}
+  </h3>
+  <h1 style="padding: 20px 4vw">I tuoi ordini:</h1>
+  <section>
+    <div  style="padding: 0 4vw" *ngFor="let item of this.sharedService.OrdiniEffettuati">
+      <mat-card class="example-card">
+        <mat-card-content>
+          <p>N° Ordine {{ item.IdOrdine }}</p>
+          <p>Ristorante scelto:</p>
+          <span
+            style="
+              display: flex;
+              align-items: center;
+              justify-content: flex-start;
+            "
+          >
+            <img
+              style="width: 50px"
+              src="{{ sharedService.imgLogo }}{{ item.Logo }}"
+            />
+            <p style="margin-left: 20px">{{ item.Ristorante }}</p>
+          </span>
+          <p style="margin-top: 10px">
+            Data dell'ordine: {{ item.DataOrdine }}
+          </p>
+          <p>Costi consegna: {{ item.CostiConsegna }} €</p>
+          <p>Ordine minimo: {{ item.OrdineMinimo }} €</p>
+          <p>Sconto applicato: {{ item.Sconto }}</p>
+          <p>Tempi di consegna: {{ item.TempiConsegna }} min</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </section>
+</main>

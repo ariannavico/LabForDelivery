@@ -1,0 +1,28 @@
+<app-header></app-header>
+<section>
+    <form>
+        <h1>Hai dimenticato la password ?</h1>
+        <mat-form-field appearance="fill">
+          <mat-label>Inserisci la tua email</mat-label>
+          <input
+            matInput
+            placeholder="pat@example.com"
+            [formControl]="sharedServiceForm.emailRicorda1"
+            required
+          />
+          <mat-error *ngIf="sharedServiceForm.emailRicorda1.invalid">{{ sharedServiceForm.getErrorMessage() }}</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Inserisci i nuovo la tua email</mat-label>
+          <input
+            matInput
+            placeholder="pat@example.com"
+            [formControl]="sharedServiceForm.emailRicorda2"
+            required
+          />
+          <mat-error *ngIf="sharedServiceForm.emailRicorda2.invalid">{{ sharedServiceForm.getErrorMessage() }}</mat-error>
+        </mat-form-field>
+        <button [disabled]="sharedServiceForm.disabledRicorda()"mat-stroked-button>Recupera la password</button>
+        <a href="#" [routerLink]="['/login']" routerLinkActive="router-link-active">Torna al login</a>
+      </form>
+</section>

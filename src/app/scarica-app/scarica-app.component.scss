@@ -1,0 +1,57 @@
+
+main{
+    margin: 4vw auto ;
+    width: 100%;
+    position: relative;
+    height: 24vw;
+    min-height: 250px;
+    button{
+        background-color: transparent;
+        outline: none;
+        border: none;
+        cursor: pointer;
+    }
+  article{
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    
+    img{
+      position: absolute;
+      top: 0;
+      min-height: 250px;
+      height: 24vw;
+      max-width: 100%;
+      &:last-of-type{
+        right: 0;
+      }
+    }
+  }
+  aside{
+    
+    position: absolute;
+    top: 0;
+    left: 20%;
+    right: 20%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 250px;
+    height: 24vw;
+    z-index: 3;
+    text-align: center;
+    h4{
+      margin: 0 auto;
+      padding: 10px;
+      border-radius: 5px;
+      width: 40vw;
+    }
+    img{
+      height: 7vw;
+      max-height: 50px;
+      width: initial;
+    }
+  
+  }
+  }

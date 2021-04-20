@@ -1,0 +1,39 @@
+$coloreB: #f7fff7;
+$coloreN: #090c02;
+$coloreC: #3ba4bc;
+$coloreR: #e75a7c;
+$coloreG: #f4a641;
+section {
+    margin: 130px 0 100px;
+  form {
+    padding-top: 80px;
+    text-align: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    margin: 0 auto;
+    .mat-form-field {
+      width: 350px !important;
+      margin-bottom: 10px;
+    }
+    button{
+      margin-bottom: 20px;
+      border-color: $coloreR;
+    }
+    a {
+      color: #000;
+      text-decoration: none;
+      margin-bottom: 10px;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 735px) {
+    section{
+        margin: 100px 0 130px;
+    }
+}

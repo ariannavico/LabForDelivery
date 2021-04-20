@@ -1,0 +1,25 @@
+<app-header></app-header>
+  <section>
+    <img class="img" src="../../assets/sfondo.png" />
+    <div class="form">
+      <h1>I piatti che ami, a casa tua.</h1>
+      <mat-form-field appearance="outline">
+        <mat-label>Inserisci il tuo indirizzo</mat-label>
+        <input matInput
+               matGoogleMapsAutocomplete
+               (onAutocompleteSelected)="this.sharedService.onAutocompleteSelected($event)"
+               (onLocationSelected)="this.sharedService.onLocationSelected($event)">
+        <mat-icon matSuffix>room</mat-icon>
+        <mat-hint style="color: red;" *ngIf="this.sharedService.errore">Non hai inserito il numero civico</mat-hint>
+      </mat-form-field>
+      <button [routerLink]="['/ristoranti']" [disabled]='this.sharedService.errore' style="padding: 0 10px" mat-raised-button>
+        Cerca i ristoranti
+      </button>
+      
+    </div>
+  </section>
+  <app-scarica-app></app-scarica-app>
+  <app-collabora-con-noi></app-collabora-con-noi>
+  <app-carosello></app-carosello>
+
+  

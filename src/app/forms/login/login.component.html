@@ -1,0 +1,35 @@
+<app-header></app-header>
+<section style="margin-top: 130px;">
+    <form>
+        <p *ngIf="sharedServiceForm.utenteRegistrato">Ti sei registrato correttamente</p>
+        <p *ngIf="sharedServiceForm.datiLogingRicevuti.loggedIn === true">Hai effettuato il login correttamente</p>
+        <p *ngIf="sharedServiceForm.datiLogingRicevuti.loggedIn === false">Qualcosa è andato storto, controlla nuovamente i dati di accesso</p>
+        <h1>Login</h1>
+        <mat-form-field appearance="fill">
+          <mat-label>Inserisci il tuo username</mat-label>
+          <input [formControl]="sharedServiceForm.usernameLogin" matInput>
+        </mat-form-field>
+    
+        <mat-form-field appearance="fill">
+          <mat-label>Inserisci la tua password</mat-label>
+          <input matInput matInput
+          placeholder="Password"
+          [formControl]="sharedServiceForm.password"
+          required [type]="sharedServiceForm.hide ? 'password' : 'text'" />
+          <mat-error *ngIf="sharedServiceForm.password.invalid">{{ sharedServiceForm.getErrorMessage() }}</mat-error>
+          <button
+            mat-icon-button
+            matSuffix
+            [routerLink]="['/registrati']" routerLinkActive="router-link-active" 
+            [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="sharedServiceForm.hide"
+          >
+            <mat-icon>{{ sharedServiceForm.hide ? "visibility_off" : "visibility" }}</mat-icon>
+          </button>
+          <mat-hint>Deve contenere almeno 8 caratteri</mat-hint>
+        </mat-form-field>
+        <button  [disabled]="sharedServiceForm.disabledLogin()" (click)='sharedServiceForm.postDatiLogin($event)' mat-stroked-button>Login</button>
+        <a href="#" [routerLink]="['/ricordaP']" routerLinkActive="router-link-active" >Hai dimenticato la password ?</a>
+        <a href="#" [routerLink]="['/registrazione']" routerLinkActive="router-link-active"  >Crea un nuovo account</a>
+      </form>
+    </section>

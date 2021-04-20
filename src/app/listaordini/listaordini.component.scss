@@ -1,0 +1,14 @@
+section{
+    min-height: 60vh;
+    .flexato{
+        box-sizing: border-box;
+        padding: 20px 4vw 0;
+        display: flex;
+        justify-content: flex-start;
+        width: 100%;
+        .prezzo{
+            width: 10vw;
+            text-align: right;
+        }
+    }
+}

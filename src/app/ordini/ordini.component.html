@@ -1,0 +1,81 @@
+<app-header></app-header>
+
+<main style="margin-top: 130px" *ngIf="this.SharedServiceForm.UtenteLoggato === true ">
+    <div
+    style="
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      flex-wrap: wrap;
+    "
+  >
+  <h3 style="padding: 20px 4vw 0">
+    Ciao {{ this.sharedService.idNomeUtente }}
+  </h3>
+    
+    <button
+      style="margin: 0 4vw 10px;width: 220px; background-color: #3ba4bc; color: #fff"
+      mat-button
+      [routerLink]="['/listaordini']" routerLinkActive="router-link-active" 
+    >
+      Rivedi tutti gli ordini effettuati
+    </button>
+  </div>
+  <h1 style="padding: 20px 4vw 0">
+    I dettagli del tuo ordine:
+  </h1>
+   
+    <p
+      *ngIf="this.sharedService.ristoranteOrdineCorrenteInviato != ''"
+      style="padding: 20px 4vw 10px"
+    >
+      Ordine per: {{ this.sharedService.ristoranteOrdineCorrenteInviato }}
+    </p>
+    <p
+      *ngIf="this.sharedService.dataOrdineCorrenteInviato != ''"
+      style="padding: 0px 4vw"
+    >
+      Ordine effettuato il: {{ this.sharedService.dataOrdineCorrenteInviato }}
+    </p>
+    <hr />
+    <section>
+      <div *ngFor="let item of this.sharedService.datiOrdineCorrenteInviato">
+        <span style="display: flex; justify-content: space-between">
+          <span class="flexato">
+            <h4 style="margin-right: 5px; width: 45px">{{ item.Unita }}</h4>
+            <h4 style="width: 350px">{{ item.Prodotto }}</h4>
+            <h4 class="prezzo">{{ item.Prezzo }}€</h4>
+            <h4 *ngIf="false">
+              {{ item.IdProdotto }}{{ item.IdRistorante }}{{ item.P_utente }}
+            </h4>
+          </span>
+        </span>
+        <h5 style="padding: 0 4vw 20px">{{ item.Descrizione }}</h5>
+      </div>
+      <span class="flexato">
+        <h5 style="width: 400px">Subtotale:</h5>
+        <h5 class="prezzo">
+          {{ this.sharedService.subtotaleDaVisualizzare }}€
+        </h5>
+      </span>
+      <span class="flexato">
+        <h5 style="width: 400px">Spese di consegna:</h5>
+        <h5 class="prezzo">{{ this.sharedService.costiConsegna }}€</h5>
+      </span>
+      <hr />
+      <span class="flexato">
+        <h3 style="width: 400px">Totale:</h3>
+        <h3 class="prezzo">{{ this.sharedService.totaleDaVisualizzare }}€</h3>
+      </span>
+    </section>
+ </main>
+  <main *ngIf="this.SharedServiceForm.UtenteLoggato === false " style="margin-top: 130px; height: 400px; display: flex; align-items: center; flex-direction: column;" > 
+    <h2 style="margin-top: 100px;">Devi effettuare il login per completare l'ordine</h2>
+    <button 
+      style="margin: 0 4vw; background-color: #f4a641; color: #fff" 
+      mat-button   
+      [routerLink]="['/login']"
+      routerLinkActive="router-link-active"
+      >Vai al login</button>
+  </main>

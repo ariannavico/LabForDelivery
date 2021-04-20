@@ -1,0 +1,74 @@
+<app-header></app-header>
+<section>
+  <div
+    style="
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    "
+  >
+    <div class="nomeRisto">
+      <img src="{{ sharedService.imgLogo }}{{ sharedService.ristoranteSelezionatoOgg.logo }}" />
+      <span>
+        <h1>{{this.sharedService.nomeRistorante }}</h1>
+        <p>{{ sharedService.ristoranteSelezionatoOgg.tipologiaRistorante }}</p>
+        <p>Tempi di consegna: {{this.sharedService.ristoranteSelezionatoOgg.tempiConsegna}} min</p>
+        <p>Costi di consegna: {{this.sharedService.ristoranteSelezionatoOgg.costiConsegna}} €</p>
+      </span>
+    </div>
+    <button
+      style="
+        background-color: #3ba4bc;
+        position: fixed;
+        right: 30px;
+        z-index: 100;
+      "
+      mat-button
+      *ngIf="this.sharedService.carrello.length != 0"
+      [routerLink]="['/carrello']"
+      routerLinkActive="router-link-active"
+    >
+      Vai al carrello
+    </button>
+  </div>
+  <mat-card *ngFor="let item of  sharedService.listaMenu" style="margin-bottom: 20px">
+    <div>
+      <h3>{{ item.Prodotto }}</h3>
+      <p>{{ item.Descrizione }}</p>
+      <p>{{ item.Prezzo }}€</p>
+      <p *ngIf=" sharedService.listaMenu.IdProdotto == 'id'">{{ item.IdProdotto }}</p>
+    </div>
+    <button
+      (click)="
+      sharedService.aggiungiProdotto(
+          item.Prodotto,
+          item.Descrizione,
+          item.Prezzo,
+          item.IdProdotto
+        )
+      "
+      mat-button
+    >
+      <mat-icon>add</mat-icon>
+    </button>
+  </mat-card>
+</section>
+<app-scarica-app></app-scarica-app>
+<div class="prompt" *ngIf="this.sharedService.svuotaClick == true">
+  <div>
+    <h2>Sei sicuro di voler cambiare Ristorante ?</h2>
+    <h3>se prosegui il tuo carrello verrà svuotato</h3>
+    <span>
+      <button mat-button (click)="this.sharedService.svuotaCarrello()">
+        Sì
+      </button>
+      <button
+        mat-button
+        [routerLink]="['/']"
+        routerLinkActive="router-link-active"
+      >
+        No
+      </button>
+    </span>
+  </div>
+</div>
