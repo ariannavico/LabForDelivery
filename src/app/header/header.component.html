@@ -101,7 +101,7 @@
         </div>
       </button>
       <mat-menu #shoppingCart="matMenu" xPosition="before">
-        <span>
+        <span><!-- 
           <button
             mat-menu-item
             *ngFor="let item of this.sharedService.carrello"
@@ -126,6 +126,33 @@
                     item.prezzoProdotto,
                     item.idProdotto
                   )
+                "
+              >
+                <mat-icon>clear</mat-icon>
+              </button>
+            </span>
+          </button> -->
+          
+          <button
+            mat-menu-item
+            *ngFor="let item of this.sharedService.arrayOrdine"
+          >
+            <span
+              style="
+                display: flex;
+                justify-content: space-between;
+                width: 350px;
+              "
+            >
+              <p style="margin-right: 30px">{{item.Unita}}pz  {{ item.Prodotto }}</p>
+              <p *ngIf="false">
+                {{item.Descrizione}}{{item.IdProdotto}}{{ item.Prezzo}}
+              </p>
+
+              <button
+                mat-button
+                (click)="
+                this.sharedService.eliminaItem( item.Prezzo,item.IdProdotto, item.Unita )
                 "
               >
                 <mat-icon>clear</mat-icon>
