@@ -52,7 +52,7 @@ const urlGetIdUtente: string =
   userPassword:string = ''
   datiLogingRicevuti:any = {}
   utenteRegistrato:any 
-  UtenteLoggato = false
+  
   
   cancellaMessaggioLoginStato() {
     this.datiLogingRicevuti= {}
@@ -129,7 +129,7 @@ const urlGetIdUtente: string =
         console.log(this.sharedService.idUtente, ' dati id utente'); 
          this.utenteRegistrato = ''
         this.getDatiLogin()
-        this.UtenteLoggato = true
+        this.sharedService.UtenteLoggato = true
       })
   }
 
