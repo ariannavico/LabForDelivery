@@ -1,6 +1,6 @@
 <app-header></app-header>
 
-<main style="margin-top: 130px" *ngIf="this.SharedServiceForm.UtenteLoggato === true ">
+<main style="margin-top: 130px" *ngIf="this.sharedService.UtenteLoggato === true ">
     <div
     style="
       display: flex;
@@ -70,7 +70,7 @@
       </span>
     </section>
  </main>
-  <main *ngIf="this.SharedServiceForm.UtenteLoggato === false " style="margin-top: 130px; height: 400px; display: flex; align-items: center; flex-direction: column;" > 
+  <main *ngIf="this.sharedService.UtenteLoggato === false " style="margin-top: 130px; height: 400px; display: flex; align-items: center; flex-direction: column;" > 
     <h2 style="margin-top: 100px;">Devi effettuare il login per completare l'ordine</h2>
     <button 
       style="margin: 0 4vw; background-color: #f4a641; color: #fff" 

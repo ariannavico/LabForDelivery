@@ -3,17 +3,18 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 
-const urlRistoranti: string =
+const urlRistoranti =
   'http://l4com.labforweb.it/backend/web/index.php?r=ristoranti/list';
-const urlMenuRistorante: string =
+const urlMenuRistorante =
   ' http://l4com.labforweb.it/backend/web/index.php?r=ristoranti/ristoranti-prodotti&IdRistorante=';
-const urlPostOrdine:string =
+const urlPostOrdine =
   'http://l4com.labforweb.it/backend/web/test/ws/users/insertOrdine.php?r=ordini/insertid_usr='
 const urlDettaglioOrdineEffettuato =
   'http://l4com.labforweb.it/backend/web/index.php?r=utenti/ordine&IdOrdine='
 const urlOrdiniEffettuati =
   'http://l4com.labforweb.it/backend/web/index.php?r=utenti/ordini&id_usr='
 
+  // tslint:disable-next-line: align
   @Injectable({
   providedIn: 'root',
 })
@@ -23,7 +24,7 @@ export class SharedService {
   nomeRistorante:string =''
   // serve per poter visualizzare l'immagine nell html in accoppiata con logo (valore restituito dall' API)
   imgLogo: string = 'http://l4com.labforweb.it/backend/web/img/ristoranti/';
-  //logo: string = '';
+  // logo: string = '';
   ristoranteSelezionatoOgg:any = {}
   costiConsegna: number = 0;
   carrello: any = [];
@@ -34,7 +35,7 @@ export class SharedService {
   totaleDaVisualizzare:string='0'
   subtotale: number = 0;
   subtotaleDaVisualizzare:string='0'
-  //mosta il messaggio di svuotamento carrello se è true
+  // mosta il messaggio di svuotamento carrello se è true
   svuotaClick:boolean = false
   // serve per comparare con l'id del ristorante corrente
   ristoranteSelezionato = ''
@@ -49,6 +50,10 @@ export class SharedService {
   arrayOrdineDiAppoggio:any = []
   ordineCorrenteInviato: string = ''
 
+  prodottoModificaUnita:any
+ 
+  
+  UtenteLoggato:boolean = false
 
   // visualizza le tre schermate invio dati: true-false-undefined
   statoOrdineEffettuato: string = ''
@@ -69,6 +74,8 @@ export class SharedService {
 
   arrayNuovoOrdine :any
 
+  unitaNuova:any
+
   // mostra i vari ristoranti
   getDatiRistoranti(): Observable<any> {
     return this.http.get(urlRistoranti);
@@ -84,7 +91,7 @@ export class SharedService {
       console.log(data);
       this.listaRistoranti = data;
       this.listaFiltrataRisto = data
-      //this.tipologia = []
+      
     });
   }
 
@@ -114,6 +121,7 @@ export class SharedService {
   
   // post per completamento ordine 
   postDatiOrdine(){  
+   if(this.UtenteLoggato === true){
     this.postOrdine(
       this.arrayOrdine
       ).subscribe(data =>{
@@ -129,7 +137,7 @@ export class SharedService {
       this.getDatiOrdineEffettuato()
       this.ngxService.stop()
     }, 1000);
-      
+  }
   }
   
   // get dati ordine effettuato
@@ -140,12 +148,12 @@ export class SharedService {
 
   getDatiOrdineEffettuato(){
     this.getOrdineEffettuato().subscribe(data=>{
-      this.datiOrdineCorrenteInviato = data
-      this.ristoranteOrdineCorrenteInviato = data[0].Ristorante
-      this.dataOrdineCorrenteInviato = data[0].DataOrdine
-      this.OrdiniEffettuati = undefined
-      this.arrayOrdine = []
-      console.log(this.datiOrdineCorrenteInviato, 'ordineinviato')
+      this.datiOrdineCorrenteInviato = data;
+      this.ristoranteOrdineCorrenteInviato = data[0].Ristorante;
+      this.dataOrdineCorrenteInviato = data[0].DataOrdine;
+      this.OrdiniEffettuati = undefined;
+      this.arrayOrdine = [];
+      console.log(this.datiOrdineCorrenteInviato, 'ordineinviato' );
     })
   }
 
@@ -178,50 +186,46 @@ export class SharedService {
     //this.nomeristoranteSelezionato = ''
     
   }
-  
-  // metodo per eliminare un prodotto dal carrelo
-  eliminaItem( prezzoProdotto:number,idProdotto:string){
+
+
+  eliminaItem( prezzoProdotto:number, idProdotto:string, unita:number){
     const idToRemove = idProdotto;
-    console.log(idProdotto + 'id prodotto');
     this.filteredCarrello = this.carrello.filter((item:any) => item.idProdotto !== idToRemove);
     this.carrello = this.filteredCarrello
-    this.arrayOrdine = this.arrayOrdineDiAppoggio.filter((item:any)=>{ return  item.IdProdotto != idToRemove })
-    this.arrayOrdineDiAppoggio = this.arrayOrdine    
+    this.unitaNuova = unita -1
+    this.arrayOrdine = this.arrayOrdineDiAppoggio.filter((item:any):any=>{ 
+      // elimina unità se il prodotto.unità != 0
+      if (item.Unita > 1){
+        this.prodottoModificaUnita = this.arrayOrdine.findIndex(((obj:any) => obj.IdProdotto === idProdotto));
+        this.arrayOrdine[this.prodottoModificaUnita].Unita = this.unitaNuova
+        console.log(this.arrayOrdine, ' ordine Unita ?');
+        return  this.arrayOrdine
+      }
+      else if (item.Unita === 1){
+      return  item.IdProdotto !== idToRemove}
+     })
+
+    this.arrayOrdineDiAppoggio = this.arrayOrdine
     this.subtotale = this.subtotale - prezzoProdotto
-    this.totale = this.totale - prezzoProdotto
+    this.totale = this.totale - prezzoProdotto 
     this.totaleDaVisualizzare = this.totale.toFixed(2)
-    this.subtotaleDaVisualizzare = this.subtotale.toFixed(2)    
-    // se il carrello è vuoto allora costi consegna = 0, totale = 0, subtotale = 0
-    if(this.carrello.length == 0){
+    this.subtotaleDaVisualizzare = this.subtotale.toFixed(2)   
+    if(this.arrayOrdine.length === 0){
       this.costiConsegna = this.costiConsegnaAppoggio
       this.totale = 0
       this.subtotale = 0
       this.subtotaleDaVisualizzare = this.subtotale.toFixed(2)
       this.totaleDaVisualizzare = this.totale.toFixed(2)
     }
-  }
-
-  // non è giusta e non funziona
- /*  doppioClick(idProdotto:any, prezzo:any){
-     this.arrayNuovoOrdine = this.arrayOrdine.map((obj:any )=> {
-      if(obj.IdProdotto === this.prodottoCorrente) // check if fieldName equals to cityId
-         return {
-           ...obj,
-           Unita: +1,
-           }
-      return obj
-    });
-    this.eliminaItem(this.prodottoCorrente, this.prezzoCorrente)
-    this.arrayOrdine.push(this.arrayNuovoOrdine) 
     
-  } */
+  }
   
 
   aggiungiProdotto(prodotto:string, descrizione:string, prezzo:string, idProdotto:string){
      // aggiunge il prodotto nel carrello ( se è il primo ristorante selezionato oppure
      // se sono sul menu del ristorante gia scelto)
   
-    if(this.ristoranteSelezionato == this.ristoranteSelezionatoOgg.idRistorante || this.ristoranteSelezionato == '' ){
+    if(this.ristoranteSelezionato === this.ristoranteSelezionatoOgg.idRistorante || this.ristoranteSelezionato === '' ){
       this.svuotaClick = false;
       // leva la visualizz di ordine effettuato con successo oppure ops
       this.statoOrdineEffettuato = ''
@@ -230,7 +234,15 @@ export class SharedService {
       this.carrello.push(
         {prodotto: prodotto, descrizioneProdotto: descrizione, prezzoProdotto: parseFloat(prezzo), idProdotto: idProdotto}
       )
-      this.arrayOrdine.push(
+      
+      // aggiungi +1 ad unità se il prodotto è gia nel carrello
+      this.prodottoModificaUnita = this.arrayOrdine.findIndex(((obj:any) => obj.IdProdotto === idProdotto));
+      if(this.prodottoModificaUnita !== -1){
+        this.arrayOrdine[this.prodottoModificaUnita].Unita += 1
+        console.log(this.arrayOrdine, ' ordine Unita ?');
+      }
+      else{
+        this.arrayOrdine.push(
           {
             Descrizione: descrizione,
             IdProdotto: idProdotto,
@@ -242,16 +254,19 @@ export class SharedService {
             Unita: 1,
           }
         )
+      }
+      
+      
       this.arrayOrdineDiAppoggio = this.arrayOrdine 
       this.calcolatot()
       this.ristoranteSelezionato = this.ristoranteSelezionatoOgg.idRistorante
       console.log(this.arrayOrdine);
-      
+      this.prodottoModificaUnita = ''
     }
     else{
       // svuotaclick = true allora compare il messaggio (vuoi scegliere il nuovo risto
       // e così cancellare il carrello)
-      this.arrayOrdine= []
+      this.arrayOrdine = []
       this.svuotaClick = true
       this.subtotale = 0
       this.totale = 0
@@ -299,7 +314,7 @@ export class SharedService {
     })
     }
     else{
-      this.listaFiltrataRisto= this.listaRistoranti
+      this.listaFiltrataRisto = this.listaRistoranti
     }    
   }
 

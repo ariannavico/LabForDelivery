@@ -1,18 +1,19 @@
 <app-header></app-header>
 
 <main style="margin-top: 130px;" >
-  <h1 style="padding: 20px 4vw;">Il mio carrello:  </h1>
+  <h1 style="padding: 20px 4vw;">Il mio carrello</h1>
   <p  style="padding: 0px 4vw;">Ordine per: {{this.sharedService.ristoranteSelezionatoOgg.nomeRistorante}}</p>
   <hr />
   <section>
-    <div *ngFor="let item of this.sharedService.carrello">
+    <div *ngFor="let item of this.sharedService.arrayOrdine">
       <span style="display: flex; justify-content: space-between;">
         <span class="flexato">
-          <h4>{{ item.prodotto }}</h4>
-          <h4 class='prezzo'>{{ item.prezzoProdotto }}€</h4>
-          <h4 *ngIf="false" >{{item.descrizioneProdotto}}{{item.idProdotto}}</h4>
+          <h4>{{item.Unita}}</h4>
+          <h4>{{ item.Prodotto }}</h4>
+          <h4 class='prezzo'>{{ item.Prezzo}}€</h4>
+          <h4 *ngIf="false" >{{item.Descrizione}}{{item.IdProdotto}}</h4>
         </span>
-        <button (click)='this.sharedService.eliminaItem( item.prezzoProdotto,item.idProdotto )' mat-button><mat-icon>clear</mat-icon></button>
+        <button (click)='this.sharedService.eliminaItem( item.Prezzo,item.IdProdotto, item.Unita )' mat-button><mat-icon>clear</mat-icon></button>
       </span>
     </div>
     <span class="flexato" >
@@ -28,7 +29,7 @@
       <h3>Totale:</h3>
       <h3 class='prezzo'>{{this.sharedService.totaleDaVisualizzare}}€</h3>
     </span>
-    <button *ngIf="this.sharedService.carrello.length != 0" style="margin: 0 4vw; background-color: #3ba4bc; color: #fff" mat-button (click)='this.sharedService.postDatiOrdine()' [routerLink]="['/ordini']" routerLinkActive="router-link-active">Vai alla cassa</button>
+    <button *ngIf="this.sharedService.arrayOrdine.length != 0" style="margin: 0 4vw; background-color: #3ba4bc; color: #fff" mat-button (click)='this.sharedService.postDatiOrdine()' [routerLink]="['/ordini']" routerLinkActive="router-link-active">Vai alla cassa</button>
   </section>
 </main>
 
